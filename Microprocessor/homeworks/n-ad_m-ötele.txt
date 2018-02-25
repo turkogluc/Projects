@@ -1,0 +1,35 @@
+******************************************************************
+* 	Cemal Türkoðlu - 150140719
+*	Ödev1 - Diziyi N adým ötelemek
+******************************************************************
+
+		BAÞ $1000
+		VER $01,$02,$03,$04,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F,$10,$11,$12,$13,$14
+
+		BAÞ $103
+		VER $00,$05		N Deðeri burada atanmaktadýr.
+
+*******************************************************************
+* 20 Adet sayý $1000 adresinden itibaren girilmiþtir.
+* Dizi baþlangýç adresi = 1000
+* Dizi bitiþ adresi	= 1013 
+*******************************************************************
+
+		BAÞ 	$120
+	
+BAÞLA		YÜK 	SK,$1013	Dizinin son elemaný SK pointer'ý ile gösterilmiþtir.
+		YÜK 	CD,<$103>	N Deðeri CD kütüðüne alýndý.
+		AKT 	AB,SK
+		TOP 	AB,CD		Ýkinci pointer olarak CD kullanýlmýþtýr
+		AKT 	CD,AB		CD nin deðeri = SK + N
+		
+DEVAM		YÜK 	A,<SK+00>	SK 'nýn gösterdiði deðer ACC A'ya alýndý
+		YAZ 	A,<CD>		ACC A'daki deðer CD'nin gösterdiði yere yazýldý
+		AZT 	SK		SK azaltýldý
+		AZT	CD		CD azaltýldý
+		KAR 	SK,$0FFF	SK dizinin baþýna gelip 1000 deðerininde gerisine geçmiþse
+		DEE 	BÝTÝR		Bitir
+		DAL 	DEVAM		Halen dizideyse devam et	
+
+BÝTÝR		KES
+	

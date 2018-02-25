@@ -1,0 +1,47 @@
+*-------------------------------------------------------------------------
+*		Cemal Türkoðlu - 150140719
+*		Sýralama programý
+*-------------------------------------------------------------------------
+
+		BAÞ $1000
+		VER $09,$08,$06,$07,$05	diziyi yükledik
+	
+		BAÞ $2000
+
+BAÞLA		SÝL D
+		YÜK D,00
+FOR		ART D			D kaç defa döngüye girileceðini tutuyor
+		KAR D,06		
+		DEE SON
+		ALT ENKCK		ENKCK alt programýna git
+
+		YIÐ A			Geri dönen en küçük deðer yýðýnýn içine atýldý.
+		
+		YÜK SK,<$0000>		en küçük deðerin adresi 0000 adresinde tutulmuþtu
+		YÜK A,$7F		bu adresi alýp en küçük deðerin üzeri \
+		YAZ A,<SK+0>		'7f' gibi büyük bir sayý ile kapatýlmýþtýr.
+		DAL FOR	
+		
+SON		KES			sýralanmýþ dizi yýðýnýn içinde toplandý.
+
+***************************************************
+ENKCK		YÜK SK,$1000
+		YÜK C,<SK+00>	En küçük C'de tutulur		
+		YAZ SK,<$0000>	En küçük deðerin adresi 0000 'da tutulur
+		ART SK
+DEVAM		YÜK B,<SK+00>	Bir sonraki elemana geç ve en küçükle karþýlaþtýr.
+		KAR B,C
+		DEK KCK
+ÝLERÝ		ART SK
+		KAR SK,$1005	Tüm dizi gezildi ise bitir
+		DEE BÝTTÝ
+		DAL DEVAM
+KCK		AKT C,B		En küçüðün deðeri ve adresini güncelle
+		YAZ SK,<$0000>
+		DAL ÝLERÝ
+BÝTTÝ		AKT A,C
+
+		DÖN
+****************************************************
+
+

@@ -1,0 +1,35 @@
+### Semaphores In C ###
+
+* Necessary Header files
+	sys/ipc.h
+	sys/sem.h
+	sys/types.h
+
+* Semaphore Creation function
+	int semget(key_t key, int nsems, int semflg);
+   # Paremeters	
+	semflg= IPC_CREAT|0700 (Last 9 bits: permission flags)	
+	key   = A inuque key
+	nsems = number of semaphores
+
+* Semop function
+	int semop(int semid, struct sembuf *sops, unsigned nsops);
+   # Parameters
+	semid = semop operates on semaphores selected from semaphore set associated with semid
+	nsops = Each of the nsops elements, pointed by sops, determines operation on a specific
+		semaphore(each element is of type: sembuf )
+    # sembuf struct
+	struct sembuf{
+	unsigned short sem_num; // semaphore number starts with 0
+	short sem_op; // semaphore operation
+	short sem_flg; // operation flags
+	};
+	
+	# sem_op variable;
+	== 0 : wait for it to be 0 (Must have read permission)
+	!= 0 : value is added to the semaphore value 
+
+* Semaphore control (semctl function)
+	int semctl(int semid, int semnum, int cmd, arg);
+	# cmd parameter = GETVAL,SETVAL,GETALL,SETALL
+	
